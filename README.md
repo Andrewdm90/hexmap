@@ -6,7 +6,8 @@ Runs purely client-side via HTML / CSS / JS. Made with pure code-vibing AI madne
 The controls are pretty straight forward. I would recommend not playing with the orientation / shape once it has generated. It won't lose any data if you do, but it will mis-align must stuff aside from hex colouring and look weird.
 
 == FEATURES ==
-COLURING: Change a hex to whatever colour you want, representing the terrain type. This uses the built-in colour pciker for your browser / OS.
+
+COLOURING: Change a hex to whatever colour you want, representing the terrain type. This uses the built-in colour pciker for your browser / OS.
 
 ICONS: Import .svg format icons and stamp them onto your hexmap. Location is not bound to a hex, you can put them whereever you want, even between hexes if you want.
 
@@ -19,4 +20,5 @@ HEX NOTES: You can add notes to the hexes by clicking a hex number, which will c
 SAVING / LOADING: Saving and loading functionality is built in as well and appears to work very well. Imported icons are also saved along with the rest of the map data. I can't guarantee compatibility with an old save file if the site is updated, though I can't think of any more features I want to add that would break compatability at the moment.
 
 == WIP ==
+
 There is currently no map / notes export function, but I (I.e. the AI) will probably add that in at some point down the line. Until then you can screenshot the map and print it if need be.
