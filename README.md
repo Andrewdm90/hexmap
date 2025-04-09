@@ -1,11 +1,12 @@
-# hexmap
-Hex map generator / editor
+# Hex Map Editor
 
-Try it out: https://andrewdm90.github.io/hexmap/
+Try it out! https://andrewdm90.github.io/hexmap/
 
-Runs client-side via HTML / CSS / JS. Made with pure code-vibing AI madness as a bit of an experiment to see whether it was possible to write a program I wanted with barely any input. The only things I changed 'manually' were some HTML and CSS for useability and layout.
+You can get .svg icons from https://thenounproject.com to add to your hex map. I grabbed a bunch from here when I was testing things out: https://skyrim.fandom.com/wiki/Category:Map_icons
 
-The controls are pretty straight forward. I would recommend not playing with the orientation / shape once it has generated. It won't lose any data if you do, but it will mis-align must stuff aside from hex colouring and look weird.
+Runs client-side via HTML / CSS / JS. Made as an experiment in 'vibe coding', and because I wanted a basic little map editor for my games (With notes functionality!).
+
+The controls are pretty straight forward. I would recommend not playing with the orientation / shape once you've set the size of hex map you want. It won't lose any data if you do, but it will mis-align must stuff aside from hex colouring and look weird. If you chnage the settings back everythnig will be back in the right place however.
 
 == FEATURES ==
 
