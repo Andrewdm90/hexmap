@@ -1,7 +1,7 @@
 # hexmap
 Hex map generator / editor
 
-Runs purely client-side via HTML / CSS / JS. Made with pure code-vibing AI madness as a bit of an experiment to see whether it was possible to write a program I wanted with barely any input. The only things I changed 'manually' were some HTML and CSS for useability and layout.
+Runs client-side via HTML / CSS / JS. Made with pure code-vibing AI madness as a bit of an experiment to see whether it was possible to write a program I wanted with barely any input. The only things I changed 'manually' were some HTML and CSS for useability and layout.
 
 The controls are pretty straight forward. I would recommend not playing with the orientation / shape once it has generated. It won't lose any data if you do, but it will mis-align must stuff aside from hex colouring and look weird.
 
