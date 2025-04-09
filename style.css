@@ -1,0 +1,586 @@
+/* Basic Styling */
+body {
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Settings Panel (NEW) */
+.settings-panel {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px; /* Space below this panel */
+    display: flex;
+    flex-direction: column; /* Title above controls */
+    align-items: center;
+    width: 80%;
+    max-width: 800px;
+}
+
+.settings-panel h3 {
+    margin: 0 0 15px 0; /* Space below title */
+    padding: 0;
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+    width: 100%;
+}
+
+/* Controls Panel (Grid Settings - inside settings-panel) */
+.controls {
+    /* Remove background, padding, shadow, margin as they are now on settings-panel */
+    display: flex;
+    flex-direction: column; /* Stack control rows */
+    gap: 15px;
+    align-items: center; /* Center items horizontally */
+    width: 100%; /* Take full width of parent */
+}
+.controls > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center; /* Center controls within their row */
+}
+.controls label {
+    margin-right: 5px;
+    font-weight: bold;
+    color: #555;
+}
+.controls input[type="number"],
+.controls select {
+    width: 60px;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+.controls select {
+    width: auto; /* Allow select to size naturally */
+    text-align: left;
+}
+
+/* Orientation Radio Button Group */
+.control-group {
+    border: 1px solid #ccc;
+    padding: 5px 10px 8px 10px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 5px;
+}
+.control-group legend {
+    font-size: 0.9em;
+    font-weight: bold;
+    padding: 0 5px;
+    margin: 0;
+    color: #555;
+}
+.control-group label {
+    margin-right: 5px;
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+
+/* Editor Panel (MODIFIED LAYOUT) */
+.editor-panel {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    /* *** USE ROW DIRECTION AND WRAPPING *** */
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px 20px; /* Row and Column gap */
+    align-items: flex-start; /* Align tool groups to top */
+    justify-content: left; /* left wrapped lines */
+    width: 80%;
+    max-width: 800px;
+}
+
+.editor-panel .tool {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping within a tool group */
+    align-items: center;
+    gap: 8px 12px; /* Smaller gap within tools */
+    padding-bottom: 0; /* Remove bottom padding */
+}
+
+/* Adjust label margins slightly */
+.editor-panel label {
+    font-weight: bold;
+    color: #555;
+    margin-right: 3px;
+}
+.editor-panel .tool > label {
+    margin-left: 5px;
+}
+.editor-panel .tool > label:first-child {
+    margin-left: 0;
+}
+
+/* Input Styles within Editor Panel */
+.editor-panel input[type="color"] {
+    width: 40px;
+    height: 25px;
+    padding: 0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.editor-panel input[type="text"] {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1; /* Allow text input to take available space */
+    min-width: 100px; /* Minimum width */
+}
+.editor-panel input[type="range"] {
+    cursor: pointer;
+    vertical-align: middle;
+}
+.editor-panel span { /* Value display spans */
+    font-size: 0.9em;
+    color: #666;
+    min-width: 30px;
+    display: inline-block;
+    text-align: right;
+    margin-left: -5px;
+}
+#iconSizeValue, #penThicknessValue, #textSizeValue {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Tool Buttons */
+.tool-button {
+     padding: 5px 12px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     background-color: #eee;
+     cursor: pointer;
+     font-weight: normal;
+     white-space: nowrap;
+     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.tool-button:hover {
+     background-color: #ddd;
+     border-color: #bbb;
+}
+.tool-button.active-tool {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+    font-weight: bold;
+}
+
+/* Specific Button Styles (Idle State) */
+#deleteIconBtn, #textDeleteBtn, #drawEraseBtn, #eraserBtn {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+#deleteIconBtn:hover, #textDeleteBtn:hover, #drawEraseBtn:hover, #eraserBtn:hover {
+     background-color: #f5c6cb;
+}
+/* #drawEraseBtn:hover {
+     background-color: #d6d8db;
+} */
+
+/* Specific Button Styles (Active State) */
+#deleteIconBtn.active-tool, #textDeleteBtn.active-tool, #drawEraseBtn.active-tool, #eraserBtn.active-tool {
+    background-color: #dc3545;
+    border-color: #bd2130;
+    color: white;
+}
+/* #drawEraseBtn.active-tool {
+    background-color: #6c757d;
+    border-color: #5a6268;
+    color: white;
+} */
+
+
+/* Icon Preview Area (Selected Icon) */
+#iconPreview {
+    width: 100px;
+    height: 100px;
+    border: 1px dashed #aaa;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    background-color: #f8f8f8;
+    overflow: hidden;
+    /* padding: 2px; */
+}
+#iconPreview svg, #iconPreview img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Icon Gallery Wrapper */
+#icon-gallery-wrapper {
+    width: 100%; /* Take full width below tools */
+    /* margin-top: 10px; Space above gallery */
+    display: flex;
+    flex-direction: row; /* Label above gallery */
+    align-items: flex-start; /* Align label left */
+}
+#icon-gallery-wrapper > label { /* Style the gallery label */
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Icon Gallery */
+#icon-gallery {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /* padding: 8px; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    height: 102px;
+    overflow-y: auto;
+    width: 84%; /* Ensure gallery takes full width inside wrapper */
+    box-sizing: border-box;
+    margin-right: 20px;
+}
+.gallery-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ccc;
+    padding: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.gallery-icon:hover { border-color: #999; }
+.gallery-icon.selected { border-color: #007bff; box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); }
+.gallery-icon img { max-width: 100%; max-height: 100%; display: block; object-fit: contain; pointer-events: none; }
+
+/* Pen Preview */
+#penPreview {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #aaa;
+    border-radius: 50%;
+    background-color: #E53935;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    box-sizing: border-box;
+    transition: width 0.1s ease, height 0.1s ease, background-color 0.2s ease;
+}
+
+/* Display Options Panel */
+.display-options-panel {
+    background-color: #fff;
+    padding: 10px 20px; /* Reduce top/bottom padding slightly */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 800px;
+}
+.display-options-panel h3 {
+     margin: 0 0 10px 0;
+     font-size: 1.2em;
+     color: #333;
+}
+.display-options-panel .tool {
+     display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+     gap: 10px 15px;
+     justify-content: center;
+}
+.display-options-panel label {
+    font-weight: bold;
+    color: #555;
+}
+.display-options-panel input[type="checkbox"] {
+    width: auto;
+    margin-right: 15px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.display-options-panel input[type="range"] {
+    cursor: pointer;
+    vertical-align: middle;
+}
+.display-options-panel span { /* Font size value */
+    font-size: 0.9em;
+    min-width: 30px;
+    display: inline-block;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+    margin-left: -5px;
+}
+
+
+/* --- Map Area Wrapper and Overlays --- */
+#map-area-wrapper {
+    position: relative;
+    margin: 20px auto;
+    overflow: auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    --hex-ui-font-size: 9px; /* Default font size for hex UI */
+    cursor: default;
+    padding: 10px;
+}
+/* Cursors for specific tool modes */
+#map-area-wrapper.delete-icon-mode #icon-layer { cursor: crosshair; }
+#text-layer.delete-text-mode { cursor: crosshair; }
+/* Disable hex number interaction during drawing */
+#map-area-wrapper.drawing-mode .hex-ui-container .hex-number {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+
+/* Base Honeycomb Container */
+#honeycomb-container {
+    position: relative;
+    min-width: 100px;
+    min-height: 100px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+/* Drawing Canvas Overlay */
+#drawing-canvas {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    cursor: default;
+}
+
+/* Icon Layer Overlay */
+#icon-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 20;
+    overflow: hidden;
+    cursor: default;
+}
+
+/* Text Layer Overlay */
+#text-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 30;
+    overflow: hidden;
+    cursor: default;
+}
+
+
+/* --- Hexagon Styles --- */
+.hexagon {
+    width: var(--hex-width);
+    height: var(--hex-height);
+    position: absolute;
+    background-color: #b0e0e6; /* Default color */
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-bottom: 2px;
+}
+.hexagon--pointy { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+.hexagon--flat { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
+.hexagon:hover { transform: scale(1.05); z-index: 5; }
+
+/* --- Hex UI (Number/Notes) Styles --- */
+.hex-ui-container {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: var(--hex-ui-font-size); /* Use CSS variable */
+    color: #333;
+    line-height: 1.1;
+    pointer-events: none; /* Container doesn't capture clicks */
+    user-select: none;
+    white-space: nowrap;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+    z-index: 15; /* Above canvas (10), below icon/text layers (20/30) */
+    font-family: monospace;
+}
+/* Show hex UI container when wrapper has the class */
+#map-area-wrapper.show-hex-ui .hex-ui-container {
+    opacity: 1;
+}
+
+/* Hex Number - Now Clickable */
+.hex-ui-container .hex-number {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0 3px;
+    border-radius: 2px;
+    cursor: pointer; /* Indicate clickable */
+    pointer-events: auto; /* Allow clicks on the number */
+}
+.hex-ui-container .hex-number:hover {
+    background: rgba(255, 255, 255, 0.9); /* Highlight on hover */
+}
+
+/* Note Indicator (Book Emoji) */
+.hex-ui-container .note-indicator {
+    pointer-events: none; /* Indicator isn't interactive */
+    margin-left: 3px;
+    font-size: 1em; /* Match font size or adjust slightly */
+    vertical-align: middle;
+    display: none; /* Hidden by default, shown via JS if notes exist */
+}
+
+
+/* --- Stamped Icons & Text Styles --- */
+.stamped-icon {
+    position: absolute;
+    user-select: none;
+    cursor: inherit;
+}
+.stamped-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+.stamped-text {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 1px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+    user-select: none;
+    cursor: default;
+    z-index: 31; /* Ensure text is clickable over icons if overlapping */
+}
+#text-layer.delete-text-mode .stamped-text {
+    cursor: crosshair !important;
+    border: 1px dashed red;
+}
+
+
+/* --- IO Panel Styles --- */
+.io-panel {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+.io-panel button {
+     padding: 8px 15px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+     background-color: #eee;
+     cursor: pointer;
+     font-weight: bold;
+     transition: background-color 0.2s ease;
+}
+.io-panel button:hover {
+     background-color: #ddd;
+}
+
+/* --- Modal Styles --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal.active { display: flex; }
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    position: relative;
+}
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1;
+}
+.close-button:hover,
+.close-button:focus { color: black; text-decoration: none; cursor: pointer; }
+.modal-content h4 { margin-top: 0; margin-bottom: 15px; color: #333; }
+.modal-content textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-family: sans-serif;
+    font-size: 1em;
+    resize: vertical;
+    min-height: 100px;
+}
+.modal-content button { /* Save button */
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    transition: background-color 0.2s ease;
+}
+.modal-content button:hover { background-color: #0056b3; }

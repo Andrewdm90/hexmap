@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hex Map Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Hex Map Editor</h1>
+
+    <!-- Settings Panel (NEW WRAPPER) -->
+    <div class="settings-panel">
+        <h3>Hex Settings</h3> <!-- NEW TITLE -->
+        <!-- Grid Controls (Now inside settings-panel) -->
+        <div class="controls">
+            <div>
+                <label for="rows">Rows:</label>
+                <input type="number" id="rows" value="5" min="1">
+                <label for="cols">Columns:</label>
+                <input type="number" id="cols" value="10" min="1">
+                <label for="size">Side (px):</label>
+                <input type="number" id="size" value="45" min="5">
+                <label for="gap">Gap (px):</label>
+                <input type="number" id="gap" value="3" min="0">
+            </div>
+            <div>
+                <label for="shape">Shape:</label>
+                <select id="shape">
+                    <option value="rectangle" selected>Rectangle</option>
+                    <option value="triangle-up">Triangle (Point Up/Down)</option>
+                    <option value="triangle-down">Triangle (Point Down/Up)</option>
+                    <option value="hexagon">Hexagon</option>
+                    <option value="circle">Circle (Approx.)</option>
+                    <option value="rhombus">Rhombus</option>
+                </select>
+                <fieldset class="control-group">
+                    <legend>Orientation:</legend>
+                    <label for="orient-flat">
+                        <input type="radio" name="orientation" id="orient-flat" value="flat" checked> Flat Top
+                    </label>
+                    <label for="orient-pointy">
+                        <input type="radio" name="orientation" id="orient-pointy" value="pointy"> Pointy Top
+                    </label>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editor Panel -->
+    <div class="editor-panel">
+        <!-- Hex Coloring -->
+        <div class="tool">
+            <button id="colorBtn" class="tool-button active-tool">🎨 Paint Hex</button>
+            <input type="color" id="colorPicker" value="#9dcd58">
+            <button id="eraserBtn" class="tool-button">Erase Hex</button>
+        </div>
+         <!-- Free Text Stamping -->
+        <div class="tool">
+             <button id="textStampBtn" class="tool-button">🔠 Text</button>
+             <input type="color" id="textColor" value="#000000">
+             <!-- <label for="textInput">Text:</label> -->
+             <input type="text" id="textInput" placeholder="Enter text...">
+             <!-- <label for="textSize">Size:</label> -->
+             <input type="range" id="textSize" min="8" max="48" value="14" step="1">
+             <span id="textSizeValue">14px</span>
+             <!-- <label for="textColor">Color:</label> -->
+             <button id="textDeleteBtn" class="tool-button">Text Deleter</button>
+        </div>
+        <!-- Drawing -->
+        <div class="tool">
+              <button id="drawBtn" class="tool-button">✏️ Draw</button>
+              <!-- <label for="penColor">Colour</label> -->
+              <input type="color" id="penColor" value="#374de3">
+              <!-- <label for="penThickness">Thickness:</label> -->
+              <input type="range" id="penThickness" min="1" max="20" value="5" step="1">
+              <span id="penThicknessValue">3px</span>
+              <!-- <label>Preview:</label> -->
+              <div id="penPreview"></div>
+              <button id="drawEraseBtn" class="tool-button">Eraser</button>
+        </div>
+        <!-- Icon Stamping -->
+        <div class="tool">
+            <button id="stampBtn" class="tool-button">🖼️ Icon</button>
+            <input type="file" id="iconFile" accept="image/svg+xml" style="display: none;" multiple>
+            <!-- <label for="iconSize">Size:</label> -->
+            <input type="range" id="iconSize" min="10" max="100" value="30" step="1">
+            <span id="iconSizeValue">30px</span>
+            <!-- <label>Preview:</label> -->
+            <button id="loadIconBtn" class="tool-button">📂 Upload Icon (SVG)</button>
+            <button id="deleteIconBtn" class="tool-button">Delete Icon</button>
+        </div>
+        <!-- Icon Gallery (Positioned after tool divs for layout) -->
+        <div id="icon-gallery-wrapper"> <!-- Wrapper for label + gallery -->
+            <!-- <label>Icon Gallery:</label> -->
+            <div id="icon-gallery">
+                 <!-- Loaded icon previews will appear here -->
+            </div>
+            <div id="iconPreview" title="Selected Icon Preview"></div>
+        </div>
+    </div>
+
+    <!-- Display Options Panel -->
+    <div class="display-options-panel">
+         <h3>Settings</h3>
+         <div class="tool">
+             <label for="toggleHexUI">Show Hex Numbers/Notes:</label>
+             <input type="checkbox" id="toggleHexUI" checked>
+             <label for="hexFontSize">Hex UI Font Size:</label>
+             <input type="range" id="hexFontSize" min="6" max="20" value="10" step="1">
+             <span id="hexFontSizeValue">9px</span>
+             <button id="saveBtn">💾 Save</button>
+             <button id="loadBtn">📂 Load</button>
+             <input type="file" id="loadFile" accept=".json" style="display: none;">
+         </div>
+    </div>
+
+    <!-- Map Area Wrapper -->
+    <div id="map-area-wrapper" class="show-hex-ui">
+        <div id="honeycomb-container"></div>
+        <canvas id="drawing-canvas"></canvas>
+        <div id="icon-layer"></div>
+        <div id="text-layer"></div>
+    </div>
+
+    <!-- IO Panel
+    <div class="io-panel">
+        <button id="saveBtn">Save Map</button>
+        <button id="loadBtn">Load Map</button>
+        <input type="file" id="loadFile" accept=".json" style="display: none;">
+    </div> -->
+
+    <!-- Hex Notes Modal -->
+    <div id="notes-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="notes-modal-close">×</span>
+            <h4 id="notes-modal-title">Notes for Hex XXYY</h4>
+            <textarea id="notes-modal-textarea" rows="8" placeholder="Enter notes here..."></textarea>
+            <button id="notes-modal-save">Save Notes</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT TAG MUST BE AT THE END -->
+    <script src="script.js"></script>
+
+</body>
+</html>
