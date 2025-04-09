@@ -19,6 +19,8 @@ HEX NOTES: You can add notes to the hexes by clicking a hex number, which will c
 
 SAVING / LOADING: Saving and loading functionality is built in as well and appears to work very well. Imported icons are also saved along with the rest of the map data. I can't guarantee compatibility with an old save file if the site is updated, though I can't think of any more features I want to add that would break compatability at the moment.
 
-== WIP ==
+== WIP / Bugs ==
 
 There is currently no map / notes export function, but I (I.e. the AI) will probably add that in at some point down the line. Until then you can screenshot the map and print it if need be.
+
+Warning: The 'Shapes' are buggy AF and don't really work expect in certain numbers of columns / rows.
