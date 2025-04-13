@@ -6,7 +6,7 @@ You can get .svg icons from https://thenounproject.com to add to your hex map. I
 
 Runs client-side via HTML / CSS / JS. Made as an experiment in 'vibe coding', and because I wanted a basic little map editor for my games (With notes functionality!).
 
-The controls are pretty straight forward. I would recommend not playing with the orientation / shape once you've set the size of hex map you want. It won't lose any data if you do, but it will mis-align must stuff aside from hex colouring and look weird. If you chnage the settings back everythnig will be back in the right place however.
+The controls are pretty straight forward. I would recommend not playing with the orientation / shape once you've set the size of hex map you want. It won't lose any data if you do, but it will mis-align must stuff aside from hex colouring and look weird. If you chnage the settings back everything will be back in the right place however.
 
 == FEATURES ==
 
