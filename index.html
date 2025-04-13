@@ -3,145 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hex Map Editor</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>Grid Map Editor</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Include html2canvas library -->
+    <script src="html2canvas.min.js"></script>
 </head>
 <body>
-    <h1>Hex Map Editor</h1>
+    <!-- Top Bar for Title, Dark Mode, Help -->
+    <div class="top-bar">
+        <h1>Hex Map Editor</h1>
+        <div class="top-bar-controls">
+             <label for="darkModeToggle" class="dark-mode-label">Dark Mode:</label>
+             <label class="switch" title="Toggle Dark Mode">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider round"></span>
+            </label>
+            <button id="helpBtn" class="help-button" title="Help">?</button>
+        </div>
+    </div>
 
-    <!-- Settings Panel (NEW WRAPPER) -->
-    <div class="settings-panel">
-        <h3>Hex Settings</h3> <!-- NEW TITLE -->
-        <!-- Grid Controls (Now inside settings-panel) -->
-        <div class="controls">
-            <div>
-                <label for="rows">Rows:</label>
-                <input type="number" id="rows" value="5" min="1">
-                <label for="cols">Columns:</label>
-                <input type="number" id="cols" value="10" min="1">
-                <label for="size">Side (px):</label>
-                <input type="number" id="size" value="45" min="5">
-                <label for="gap">Gap (px):</label>
-                <input type="number" id="gap" value="3" min="0">
-            </div>
-            <div>
-                <label for="shape">Shape:</label>
-                <select id="shape">
-                    <option value="rectangle" selected>Rectangle</option>
-                    <option value="triangle-up">Triangle (Point Up/Down)</option>
-                    <option value="triangle-down">Triangle (Point Down/Up)</option>
-                    <option value="hexagon">Hexagon</option>
-                    <option value="circle">Circle (Approx.)</option>
-                    <option value="rhombus">Rhombus</option>
-                </select>
-                <fieldset class="control-group">
-                    <legend>Orientation:</legend>
-                    <label for="orient-flat">
-                        <input type="radio" name="orientation" id="orient-flat" value="flat" checked> Flat Top
-                    </label>
-                    <label for="orient-pointy">
-                        <input type="radio" name="orientation" id="orient-pointy" value="pointy"> Pointy Top
-                    </label>
-                </fieldset>
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="panel-header" id="settings-toggle">
+            <h3>Grid Settings</h3>
+            <button class="collapse-btn" title="Toggle Settings">▲</button>
+        </div>
+        <div class="panel-content">
+            <div class="controls">
+                <div>
+                    <label for="rows">Rows:</label>
+                    <input type="number" id="rows" value="5" min="1">
+                    <label for="cols">Columns:</label>
+                    <input type="number" id="cols" value="10" min="1">
+                    <label for="size">Size (px):</label>
+                    <input type="number" id="size" value="45" min="5">
+                    <label for="gap">Gap (px):</label>
+                    <input type="number" id="gap" value="3" min="0">
+                </div>
+                <div>
+                    <label for="shape">Shape:</label>
+                    <select id="shape">
+                        <option value="hexagon" selected>Hexagon</option>
+                        <option value="square">Square</option>
+                        <option value="rectangle" class="hex-only">Hex: Rectangle</option>
+                        <option value="triangle-up" class="hex-only">Hex: Triangle (Up)</option>
+                        <option value="triangle-down" class="hex-only">Hex: Triangle (Down)</option>
+                        <option value="hexagon-shape" class="hex-only">Hex: Hexagon</option>
+                        <option value="circle" class="hex-only">Hex: Circle (Approx.)</option>
+                        <option value="rhombus" class="hex-only">Hex: Rhombus</option>
+                    </select>
+                    <fieldset class="control-group hex-only">
+                        <legend>Orientation:</legend>
+                        <label for="orient-flat">
+                            <input type="radio" name="orientation" id="orient-flat" value="flat" checked> Flat Top
+                        </label>
+                        <label for="orient-pointy">
+                            <input type="radio" name="orientation" id="orient-pointy" value="pointy"> Pointy Top
+                        </label>
+                    </fieldset>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Editor Panel -->
+
+    <!-- Editor Panel with Tabs -->
     <div class="editor-panel">
-        <!-- Hex Coloring -->
-        <div class="tool">
-            <button id="colorBtn" class="tool-button active-tool">🎨 Paint Hex</button>
-            <input type="color" id="colorPicker" value="#9dcd58">
-            <button id="eraserBtn" class="tool-button">Erase Hex</button>
+        <div class="tab-buttons">
+            <button class="tab-button active-tab" data-tab="paint">🎨 Paint</button>
+            <button class="tab-button" data-tab="icon">🖼️ Icon</button>
+            <button class="tab-button" data-tab="text">🔠 Text</button>
+            <button class="tab-button" data-tab="draw">✏️ Draw</button>
+            <button class="tab-button" data-tab="options">⚙️ Options</button>
+            <span id="current-tool-display" class="tool-display">Tool: None</span>
+            <button id="noToolBtn" class="tool-button deselect-button" title="Deselect Tool (Needed for Notes)">✋ No Tool</button>
         </div>
-         <!-- Free Text Stamping -->
-        <div class="tool">
-             <button id="textStampBtn" class="tool-button">🔠 Text</button>
-             <input type="color" id="textColor" value="#000000">
-             <!-- <label for="textInput">Text:</label> -->
-             <input type="text" id="textInput" placeholder="Enter text...">
-             <!-- <label for="textSize">Size:</label> -->
-             <input type="range" id="textSize" min="8" max="48" value="14" step="1">
-             <span id="textSizeValue">14px</span>
-             <!-- <label for="textColor">Color:</label> -->
-             <button id="textDeleteBtn" class="tool-button">Text Deleter</button>
-        </div>
-        <!-- Drawing -->
-        <div class="tool">
-              <button id="drawBtn" class="tool-button">✏️ Draw</button>
-              <!-- <label for="penColor">Colour</label> -->
-              <input type="color" id="penColor" value="#374de3">
-              <!-- <label for="penThickness">Thickness:</label> -->
-              <input type="range" id="penThickness" min="1" max="20" value="5" step="1">
-              <span id="penThicknessValue">3px</span>
-              <!-- <label>Preview:</label> -->
-              <div id="penPreview"></div>
-              <button id="drawEraseBtn" class="tool-button">Eraser</button>
-        </div>
-        <!-- Icon Stamping -->
-        <div class="tool">
-            <button id="stampBtn" class="tool-button">🖼️ Icon</button>
-            <input type="file" id="iconFile" accept="image/svg+xml" style="display: none;" multiple>
-            <!-- <label for="iconSize">Size:</label> -->
-            <input type="range" id="iconSize" min="10" max="100" value="30" step="1">
-            <span id="iconSizeValue">30px</span>
-            <!-- <label>Preview:</label> -->
-            <button id="loadIconBtn" class="tool-button">📂 Upload Icon (SVG)</button>
-            <button id="deleteIconBtn" class="tool-button">Delete Icon</button>
-        </div>
-        <!-- Icon Gallery (Positioned after tool divs for layout) -->
-        <div id="icon-gallery-wrapper"> <!-- Wrapper for label + gallery -->
-            <!-- <label>Icon Gallery:</label> -->
-            <div id="icon-gallery">
-                 <!-- Loaded icon previews will appear here -->
-            </div>
-            <div id="iconPreview" title="Selected Icon Preview"></div>
-        </div>
-    </div>
 
-    <!-- Display Options Panel -->
-    <div class="display-options-panel">
-         <h3>Settings</h3>
-         <div class="tool">
-             <label for="toggleHexUI">Show Hex Numbers/Notes:</label>
-             <input type="checkbox" id="toggleHexUI" checked>
-             <label for="hexFontSize">Hex UI Font Size:</label>
-             <input type="range" id="hexFontSize" min="6" max="20" value="10" step="1">
-             <span id="hexFontSizeValue">9px</span>
-             <button id="saveBtn">💾 Save</button>
-             <button id="loadBtn">📂 Load</button>
-             <input type="file" id="loadFile" accept=".json" style="display: none;">
-         </div>
+        <div class="tab-content active-tab-content" id="tab-paint">
+            <div class="tool">
+                <button id="colorBtn" class="tool-button active-tool">Paint Cell</button>
+                <input type="color" id="colorPicker" value="#9dcd58">
+                <input type="text" id="colorPickerHex" class="hex-input"> <!-- Removed readonly -->
+                <button class="eyedropper-btn" data-target-color="#colorPicker" title="Pick Color">💧</button>
+                <button id="eraserBtn" class="tool-button">Reset Cell Color</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-icon">
+             <div class="tool">
+                <button id="stampBtn" class="tool-button">Stamp Icon</button>
+                <button id="loadIconBtn" class="tool-button">📂 Upload (SVG, PNG, JPG)</button>
+                <input type="file" id="iconFile" accept="image/svg+xml,image/png,image/jpeg" style="display: none;" multiple>
+                <button id="deleteIconBtn" class="tool-button">Delete icon</button>
+             </div>
+             <div class="tool">
+                <label for="iconSize">Size:</label>
+                <input type="range" id="iconSize" min="10" max="100" value="30" step="1">
+                <span id="iconSizeValue">30px</span>
+                <label for="iconRotation">Rotate:</label>
+                <input type="range" id="iconRotation" min="0" max="359" value="0" step="1">
+                <span id="iconRotationValue">0°</span>
+                <!-- Icon Coloriser options disabled as it doesn't play well with html2canvas / the other elements -->
+                <!-- <label for="iconColorizer">Colorize (SVG):</label> -->
+                <!-- <input type="color" id="iconColorizer" value="#ffffff" title="Select color to tint SVG icon (white = no tint)"> -->
+                <!-- ADDED Hex input, Intensity slider -->
+                <!-- <input type="text" id="iconColorizerHex" class="hex-input"> -->
+                <!-- <button class="eyedropper-btn" data-target-color="#iconColorizer" title="Pick Color">💧</button> -->
+                <!-- <label for="iconColorIntensity">Intensity:</label> -->
+                <!-- CHANGE default value from 80 to 50 -->
+                <!-- <input type="range" id="iconColorIntensity" min="0" max="100" value="50" step="1"> -->
+                <!-- CHANGE default text from 80% to 50% -->
+                <!-- <span id="iconColorIntensityValue">50%</span> -->
+             </div>
+              <div id="icon-gallery-wrapper">
+                 <div id="icon-gallery">
+                      <!-- Loaded icon previews will appear here -->
+                 </div>
+                 <div id="iconPreview" title="Selected Icon Preview"></div>
+             </div>
+        </div>
+
+        <div class="tab-content" id="tab-text">
+             <div class="tool">
+                  <button id="textStampBtn" class="tool-button">Stamp Text</button>
+                  <input type="text" id="textInput" placeholder="Enter text...">
+                  <button id="textDeleteBtn" class="tool-button">Text Deleter</button>
+             </div>
+             <div class="tool">
+                 <label for="textSize">Size:</label>
+                 <input type="range" id="textSize" min="8" max="48" value="14" step="1">
+                 <span id="textSizeValue">14px</span>
+                 <label for="textColor">Color:</label>
+                 <input type="color" id="textColor" value="#000000">
+                 <input type="text" id="textColorHex" class="hex-input"> <!-- Removed readonly -->
+                 <button class="eyedropper-btn" data-target-color="#textColor" title="Pick Color">💧</button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-draw">
+             <div class="tool">
+                   <button id="drawBtn" class="tool-button">Draw Line</button>
+                   <input type="color" id="penColor" value="#6375EE">
+                   <input type="text" id="penColorHex" class="hex-input"> <!-- Removed readonly -->
+                   <button class="eyedropper-btn" data-target-color="#penColor" title="Pick Color">💧</button>
+                   <label for="penThickness">Thickness:</label>
+                   <input type="range" id="penThickness" min="1" max="25" value="5" step="1">
+                   <span id="penThicknessValue">5px</span>
+                   <label>Preview:</label>
+                   <div id="penPreview"></div>
+                   <button id="drawEraseBtn" class="tool-button">Eraser</button>
+             </div>
+        </div>
+
+        <div class="tab-content" id="tab-options">
+             <div class="tool">
+                <label for="toggleGridUI">Show Cell ID:</label>
+                <input type="checkbox" id="toggleGridUI" checked>
+                <label for="gridFontSize">Cell ID Font:</label>
+                <input type="range" id="gridFontSize" min="6" max="20" value="10" step="1">
+                <span id="gridFontSizeValue">10px</span>
+                <label for="gridUiPositionSlider">Position:</label>
+                <input type="range" id="gridUiPositionSlider" min="0" max="100" value="10" step="1">
+                <span id="gridUiPositionValue">10%</span>
+           </div>
+              <div class="tool">
+                  <button id="saveBtn">💾 Save Map</button>
+                  <button id="loadBtn">📂 Load Map</button>
+                  <input type="file" id="loadFile" accept=".json" style="display: none;">
+                  <button id="exportNotesBtn">📝 Export Notes (.html)</button> <!-- Updated extension -->
+                  <button id="exportPngBtn">🖼️ Export Map (.png)</button>
+             </div>
+        </div>
     </div>
 
     <!-- Map Area Wrapper -->
-    <div id="map-area-wrapper" class="show-hex-ui">
-        <div id="honeycomb-container"></div>
+    <div id="map-area-wrapper" class="show-grid-ui">
+        <div id="grid-container"></div>
         <canvas id="drawing-canvas"></canvas>
         <div id="icon-layer"></div>
         <div id="text-layer"></div>
     </div>
 
-    <!-- IO Panel
-    <div class="io-panel">
-        <button id="saveBtn">Save Map</button>
-        <button id="loadBtn">Load Map</button>
-        <input type="file" id="loadFile" accept=".json" style="display: none;">
-    </div> -->
-
-    <!-- Hex Notes Modal -->
+    <!-- Notes Modal -->
     <div id="notes-modal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="notes-modal-close">×</span>
-            <h4 id="notes-modal-title">Notes for Hex XXYY</h4>
-            <textarea id="notes-modal-textarea" rows="8" placeholder="Enter notes here..."></textarea>
+            <h4 id="notes-modal-title">Notes for Cell XXYY</h4>
+            <div class="notes-toolbar">
+                <button data-command="bold" title="Bold"><b>B</b></button>
+                <button data-command="italic" title="Italic"><i>I</i></button>
+                <button data-command="underline" title="Underline"><u>U</u></button>
+                <button data-command="insertUnorderedList" title="Bullet List">●</button>
+                <button data-command="justifyLeft" title="Align Left">Left</button>
+                <button data-command="justifyCenter" title="Align Center">Center</button>
+                <button data-command="justifyRight" title="Align Right">Right</button>
+                <button data-command="insertImage" title="Insert Image (URL)">Image</button>
+            </div>
+            <div id="notes-modal-editor" class="notes-editor" contenteditable="true" spellcheck="false"></div>
             <button id="notes-modal-save">Save Notes</button>
         </div>
     </div>
 
+     <!-- Help Modal -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="help-modal-close">×</span>
+            <h4>Grid Map Editor Help</h4>
+            <p>Version 18 - 13/04/2025</p>
+            <p>Instructions on how to use the editor:</p>
+            <ul>
+                <li>Use the Grid Settings to change map size, shape, and layout. Click the header to collapse/expand.</li>
+                <li>Select tools from the tabs below the grid settings.</li>
+                <li><b>Paint Tab:</b> Click cells to color them or erase color. Use color picker, hex input, or eyedropper.</li>
+                <li><b>Icon Tab:</b> Upload SVG/PNG/JPG icons. Select one from the gallery. Click map to stamp. Use sliders to adjust size and rotation *before* stamping. Click 'Delete Icon' then click icons on the map to remove them. Click the red '❌' on gallery icons to remove them from the gallery.</li>
+                 <li><b>Text Tab:</b> Enter text, set size/color using picker, hex, or eyedropper. Click map to stamp. Click 'Delete Text' then click text on map to remove.</li>
+                 <li><b>Draw Tab:</b> Select color/thickness using picker, hex, or eyedropper. Click and drag on the map to draw lines. Use eraser to remove parts of drawings.</li>
+                 <li><b>Options Tab:</b> Toggle cell UI visibility, size, and vertical position. Save/Load map state (.json). Export notes (.html) or the map view (.png).</li>
+                 <li><b>No Tool Button:</b> You MUST click 'No Tool' to deselect other tools before you can click on a cell's number to add or edit notes. The currently selected tool is shown next to this button.</li>
+                 <li><b>Notes:</b> When 'No Tool' is active, click a cell number (e.g., 0101) to open the notes editor for that cell. A book icon (📓) indicates existing notes. Use the toolbar above the notes area for formatting (Bold, Italic, Underline, Bullets, Alignment, Insert Image from URL).</li>
+                 <li><b>Eyedropper (💧):</b> Click the eyedropper button next to a color input, then click anywhere on the page to pick a color (Not available in all browsers).</li>
+                 <li><b>Dark Mode:</b> Use the toggle switch in the top right.</li>
+            </ul>
+        </div>
+    </div>
+
     <!-- SCRIPT TAG MUST BE AT THE END -->
-    <script src="script.js"></script>
+    <script src="main.js" type="module"></script>
 
 </body>
 </html>

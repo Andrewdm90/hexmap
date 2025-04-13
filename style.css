@@ -1,7 +1,116 @@
+/* --- START OF FILE style.css --- */
+
+/* --- CSS Variables --- */
+:root {
+    --bg-color: #f0f0f0;
+    --panel-bg-color: #ffffff;
+    --text-color: #333;
+    --label-color: #555;
+    --border-color: #ccc;
+    --border-color-light: #ddd;
+    --border-color-dark: #aaa;
+    --button-bg: #eee;
+    --button-hover-bg: #ddd;
+    --button-border: #ccc;
+    --button-hover-border: #bbb;
+    --active-button-bg: #007bff;
+    --active-button-text: white;
+    --active-button-border: #0056b3;
+    --delete-button-bg: #f8d7da;
+    --delete-button-border: #f5c6cb;
+    --delete-button-text: #721c24;
+    --delete-button-hover-bg: #f5c6cb;
+    --active-delete-button-bg: #dc3545;
+    --active-delete-button-border: #bd2130;
+    --active-delete-button-text: white;
+    --modal-bg: rgba(0,0,0,0.5);
+    --modal-content-bg: #fefefe;
+    --modal-text: #333;
+    --modal-close-button: #aaa;
+    --modal-close-button-hover: black;
+    --input-bg: white;
+    --input-text: #333;
+    --shadow-color: rgba(0,0,0,0.1);
+    --grid-ui-bg: rgba(255, 255, 255, 0.7);
+    --grid-ui-hover-bg: rgba(255, 255, 255, 0.9);
+    --grid-ui-text: #333;
+    --gallery-bg: #f0f0f0;
+    --gallery-icon-bg: #fff;
+    --gallery-icon-border: #ccc;
+    --gallery-icon-hover-border: #999;
+    --gallery-selected-border: #007bff;
+    --gallery-selected-shadow: rgba(0, 123, 255, 0.5);
+    --tab-inactive-bg: #eee;
+    --tab-inactive-border: #ddd;
+    --tab-active-bg: var(--panel-bg-color); /* Match panel */
+    --tab-active-border: var(--border-color);
+    --help-button-bg: #007bff;
+    --help-button-text: white;
+    --switch-bg: #ccc;
+    --switch-slider-bg: white;
+    --switch-checked-bg: #007bff;
+
+    --grid-ui-font-size: 10px; /* Default font size for grid UI */
+    /* CSS Variable for vertical position, default 10% */
+    --grid-ui-vertical-position: 10%;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --panel-bg-color: #2c2c2c;
+    --text-color: #f0f0f0;
+    --label-color: #bbb;
+    --border-color: #555;
+    --border-color-light: #444;
+    --border-color-dark: #777;
+    --button-bg: #444;
+    --button-hover-bg: #555;
+    --button-border: #666;
+    --button-hover-border: #777;
+    --active-button-bg: #0056b3; /* Slightly darker blue */
+    --active-button-text: white;
+    --active-button-border: #004085;
+    --delete-button-bg: #5a2d2d;
+    --delete-button-border: #7a3f3f;
+    --delete-button-text: #f5c6cb;
+    --delete-button-hover-bg: #7a3f3f;
+    --active-delete-button-bg: #a71d2a;
+    --active-delete-button-border: #8b1923;
+    --active-delete-button-text: white;
+    --modal-bg: rgba(0,0,0,0.7);
+    --modal-content-bg: #333;
+    --modal-text: #f0f0f0;
+    --modal-close-button: #aaa;
+    --modal-close-button-hover: #eee;
+    --input-bg: #555;
+    --input-text: #f0f0f0;
+    --shadow-color: rgba(255,255,255,0.05);
+    --grid-ui-bg: rgba(0, 0, 0, 0.6);
+    --grid-ui-hover-bg: rgba(0, 0, 0, 0.8);
+    --grid-ui-text: #eee;
+    --gallery-bg: #3a3a3a;
+    --gallery-icon-bg: #555;
+    --gallery-icon-border: #777;
+    --gallery-icon-hover-border: #999;
+    --gallery-selected-border: #4dabf7;
+    --gallery-selected-shadow: rgba(77, 171, 247, 0.5);
+    --tab-inactive-bg: #444;
+    --tab-inactive-border: #555;
+    /* Ensure active tab uses dark panel color */
+    --tab-active-bg: var(--panel-bg-color);
+    --tab-active-border: var(--border-color);
+    --help-button-bg: #0056b3;
+    --switch-bg: #555;
+    --switch-slider-bg: #aaa;
+    --switch-checked-bg: #0056b3;
+}
+
 /* Basic Styling */
 body {
     font-family: sans-serif;
-    background-color: #f0f0f0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 20px;
     display: flex;
@@ -9,71 +118,207 @@ body {
     align-items: center;
 }
 
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Settings Panel (NEW) */
-.settings-panel {
-    background-color: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px; /* Space below this panel */
+/* Top Bar */
+.top-bar {
+    width: 90%;
+    max-width: 1000px;
     display: flex;
-    flex-direction: column; /* Title above controls */
+    justify-content: space-between;
     align-items: center;
-    width: 80%;
-    max-width: 800px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+.top-bar h1 {
+    color: var(--text-color);
+    margin: 0 auto 0 0; /* Push title left, auto margin centers it between flex items */
+    flex-grow: 1; /* Allow h1 to take space */
+    text-align: center; /* Center text within the h1's space */
+    font-size: 1.8em;
+}
+.top-bar-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0; /* Prevent controls from shrinking */
 }
 
-.settings-panel h3 {
-    margin: 0 0 15px 0; /* Space below title */
+/* Help Button */
+.help-button {
+    background-color: var(--help-button-bg);
+    color: var(--help-button-text);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    padding: 0;
+    transition: background-color 0.2s ease;
+}
+.help-button:hover {
+    filter: brightness(1.2);
+}
+
+/* Dark Mode Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Smaller width */
+  height: 24px; /* Smaller height */
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--switch-bg);
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px; /* Smaller handle */
+  width: 18px;  /* Smaller handle */
+  left: 3px;   /* Adjusted position */
+  bottom: 3px;  /* Adjusted position */
+  background-color: var(--switch-slider-bg);
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: var(--switch-checked-bg);
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--switch-checked-bg);
+}
+input:checked + .slider:before {
+  transform: translateX(26px); /* Adjusted movement */
+}
+.slider.round { border-radius: 24px; } /* Adjusted border-radius */
+.slider.round:before { border-radius: 50%; }
+
+/* Dark Mode Label */
+.dark-mode-label {
+    color: var(--label-color);
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-right: 5px; /* Space before the switch */
+}
+
+
+/* Shared Panel Styling */
+.settings-panel,
+.editor-panel {
+    background-color: var(--panel-bg-color);
+    /* padding: 15px 20px; */ /* Removed padding for settings panel */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 1000px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+.settings-panel {
+     padding: 0; /* Ensure no padding on main settings panel */
+}
+.editor-panel {
+     padding: 15px 20px; /* Keep padding for editor panel */
+}
+
+/* Settings Panel - Collapse Feature */
+.settings-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Padding for header */
+    cursor: pointer;
+    border-bottom: 1px solid transparent; /* Add border space */
+    transition: border-color 0.3s ease;
+}
+.settings-panel.collapsed .panel-header {
+    border-bottom-color: var(--border-color-light); /* Show border when collapsed */
+}
+.settings-panel .panel-header h3 {
+    margin: 0; /* Remove margin from h3 */
     padding: 0;
     font-size: 1.2em;
-    color: #333;
-    text-align: center;
+    color: var(--text-color);
+    text-align: left; /* Align title left */
+}
+.settings-panel .collapse-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 5px;
+    color: var(--label-color);
+    transition: transform 0.3s ease;
+}
+.settings-panel.collapsed .collapse-btn {
+    transform: rotate(180deg); /* Point down when collapsed */
+}
+.settings-panel .panel-content {
+    padding: 15px 20px; /* Original padding for content */
+    max-height: 1000px; /* Allow large height */
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out, opacity 0.3s ease-out;
+    opacity: 1;
+}
+.settings-panel.collapsed .panel-content {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    /* border-top: 1px solid var(--border-color-light); /* Optional separator line */
+}
+.settings-panel .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
     width: 100%;
 }
-
-/* Controls Panel (Grid Settings - inside settings-panel) */
-.controls {
-    /* Remove background, padding, shadow, margin as they are now on settings-panel */
-    display: flex;
-    flex-direction: column; /* Stack control rows */
-    gap: 15px;
-    align-items: center; /* Center items horizontally */
-    width: 100%; /* Take full width of parent */
-}
-.controls > div {
+.settings-panel .controls > div {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     align-items: center;
-    justify-content: center; /* Center controls within their row */
+    justify-content: center;
 }
-.controls label {
+.settings-panel label {
     margin-right: 5px;
     font-weight: bold;
-    color: #555;
+    color: var(--label-color);
 }
-.controls input[type="number"],
-.controls select {
+.settings-panel input[type="number"],
+.settings-panel select {
     width: 60px;
     padding: 5px 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--input-text);
     border-radius: 4px;
     text-align: center;
 }
-.controls select {
-    width: auto; /* Allow select to size naturally */
+.settings-panel select {
+    width: auto;
     text-align: left;
 }
-
-/* Orientation Radio Button Group */
-.control-group {
-    border: 1px solid #ccc;
+.settings-panel .control-group {
+    border: 1px solid var(--border-color);
     padding: 5px 10px 8px 10px;
     border-radius: 4px;
     display: inline-flex;
@@ -81,76 +326,144 @@ h1 {
     gap: 10px;
     margin-left: 5px;
 }
-.control-group legend {
+.settings-panel .control-group legend {
     font-size: 0.9em;
     font-weight: bold;
     padding: 0 5px;
     margin: 0;
-    color: #555;
+    color: var(--label-color);
 }
-.control-group label {
+.settings-panel .control-group label {
     margin-right: 5px;
     font-weight: normal;
     display: inline-flex;
     align-items: center;
     gap: 3px;
+    color: var(--text-color);
+}
+.settings-panel.shape-square .hex-only {
+    display: none !important;
 }
 
 
-/* Editor Panel (MODIFIED LAYOUT) */
+/* Editor Panel (Tabs) */
 .editor-panel {
-    background-color: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
     display: flex;
-    /* *** USE ROW DIRECTION AND WRAPPING *** */
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 15px 20px; /* Row and Column gap */
-    align-items: flex-start; /* Align tool groups to top */
-    justify-content: left; /* left wrapped lines */
-    width: 80%;
-    max-width: 800px;
+    flex-direction: column; /* Stack tabs above content */
 }
-
-.editor-panel .tool {
+.tab-buttons {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping within a tool group */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
     align-items: center;
-    gap: 8px 12px; /* Smaller gap within tools */
-    padding-bottom: 0; /* Remove bottom padding */
+    margin-bottom: -1px; /* Pull content border up */
+}
+.tab-button {
+    min-width: 90px; /* Ensure minimum width */
+    padding: 8px 15px; /* More padding */
+    border: 1px solid var(--tab-inactive-border);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    background-color: var(--tab-inactive-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    text-align: center;
+    flex-shrink: 0; /* Prevent tabs from shrinking */
+}
+.tab-button:hover {
+    background-color: var(--button-hover-bg);
+}
+.tab-button.active-tab {
+    background-color: var(--tab-active-bg);
+    border-color: var(--tab-active-border) var(--tab-active-border) var(--tab-active-bg);
+    position: relative;
+    z-index: 2;
+    margin-bottom: -1px; /* Overlap the content border */
 }
 
-/* Adjust label margins slightly */
+/* Tool Display */
+.tool-display {
+    margin-left: auto;
+    margin-right: 10px;
+    font-style: italic;
+    color: var(--label-color);
+    font-size: 0.9em;
+    white-space: nowrap;
+    padding: 8px 0; /* Align vertically with tabs */
+}
+
+/* Deselect Button */
+.deselect-button {
+    background-color: #6c757d;
+    border-color: #5a6268;
+    color: white;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+body.dark-mode .deselect-button {
+    background-color: #5a6268;
+    border-color: #4e555b;
+}
+.deselect-button.active-tool {
+    background-color: #495057;
+    border-color: #343a40;
+}
+
+
+/* Tab Content */
+.tab-content {
+    display: none; /* Hide inactive tabs */
+    padding: 15px 20px; /* Restore padding */
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 8px 8px; /* Match panel bottom corners */
+    margin-top: 0; /* Ensure no gap */
+}
+.tab-content.active-tab-content {
+    display: block; /* Show active tab */
+}
+.tab-content .tool {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-top: 10px; /* Space between tool rows */
+}
+.tab-content .tool:first-child {
+    margin-top: 0; /* No top margin for the first tool group */
+}
 .editor-panel label {
     font-weight: bold;
-    color: #555;
+    color: var(--label-color);
     margin-right: 3px;
 }
-.editor-panel .tool > label {
-    margin-left: 5px;
-}
-.editor-panel .tool > label:first-child {
-    margin-left: 0;
-}
-
-/* Input Styles within Editor Panel */
 .editor-panel input[type="color"] {
     width: 40px;
     height: 25px;
     padding: 0;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
     cursor: pointer;
     vertical-align: middle;
 }
 .editor-panel input[type="text"] {
     padding: 4px 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--input-text);
     border-radius: 4px;
-    flex-grow: 1; /* Allow text input to take available space */
-    min-width: 100px; /* Minimum width */
+    flex-grow: 1;
+    min-width: 100px;
+}
+.editor-panel input.hex-input { /* Specific styling for hex readouts */
+    flex-grow: 0;
+    min-width: 70px;
+    width: 70px;
+    text-align: center;
+    font-family: monospace;
+    /* background-color: var(--bg-color); */
 }
 .editor-panel input[type="range"] {
     cursor: pointer;
@@ -158,193 +471,193 @@ h1 {
 }
 .editor-panel span { /* Value display spans */
     font-size: 0.9em;
-    color: #666;
+    color: var(--label-color);
     min-width: 30px;
     display: inline-block;
     text-align: right;
-    margin-left: -5px;
-}
-#iconSizeValue, #penThicknessValue, #textSizeValue {
     font-weight: bold;
-    color: #333;
+}
+#iconSizeValue, #penThicknessValue, #textSizeValue, #iconRotationValue, #gridFontSizeValue, #gridUiPositionValue {
+    font-weight: bold;
+    color: var(--text-color);
+}
+.tool-note { /* Style was removed from HTML but kept here if needed later */
+    font-size: 0.9em;
+    color: var(--label-color);
+    margin: 5px 0 0 0;
+    font-style: italic;
 }
 
 /* Tool Buttons */
 .tool-button {
-     padding: 5px 12px;
-     border: 1px solid #ccc;
-     border-radius: 4px;
-     background-color: #eee;
-     cursor: pointer;
-     font-weight: normal;
-     white-space: nowrap;
-     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    min-width: 85px;
+    padding: 5px 12px;
+    border: 1px solid var(--button-border);
+    border-radius: 4px;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: normal;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .tool-button:hover {
-     background-color: #ddd;
-     border-color: #bbb;
+    background-color: var(--button-hover-bg);
+    border-color: var(--button-hover-border);
 }
 .tool-button.active-tool {
-    background-color: #007bff;
-    color: white;
-    border-color: #0056b3;
+    background-color: var(--active-button-bg);
+    color: var(--active-button-text);
+    border-color: var(--active-button-border);
     font-weight: bold;
 }
 
-/* Specific Button Styles (Idle State) */
+/* Specific Button States */
 #deleteIconBtn, #textDeleteBtn, #drawEraseBtn, #eraserBtn {
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    color: #721c24;
+    background-color: var(--delete-button-bg);
+    border-color: var(--delete-button-border);
+    color: var(--delete-button-text);
 }
 #deleteIconBtn:hover, #textDeleteBtn:hover, #drawEraseBtn:hover, #eraserBtn:hover {
-     background-color: #f5c6cb;
+    background-color: var(--delete-button-hover-bg);
 }
-/* #drawEraseBtn:hover {
-     background-color: #d6d8db;
-} */
-
-/* Specific Button Styles (Active State) */
 #deleteIconBtn.active-tool, #textDeleteBtn.active-tool, #drawEraseBtn.active-tool, #eraserBtn.active-tool {
-    background-color: #dc3545;
-    border-color: #bd2130;
-    color: white;
+    background-color: var(--active-delete-button-bg);
+    border-color: var(--active-delete-button-border);
+    color: var(--active-delete-button-text);
 }
-/* #drawEraseBtn.active-tool {
-    background-color: #6c757d;
-    border-color: #5a6268;
-    color: white;
-} */
+/* Eyedropper Button */
+.eyedropper-btn {
+    background: none;
+    border: none;
+    font-size: 1.4em;
+    cursor: pointer;
+    padding: 0 5px;
+    vertical-align: middle;
+    line-height: 1;
+    color: var(--text-color);
+}
+.eyedropper-btn:hover {
+    opacity: 0.7;
+}
 
+
+/* Icon Tools Specific */
+#icon-gallery-wrapper {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+}
+/* #icon-gallery-wrapper > label { Removed from HTML */
+/* } */
+#icon-gallery {
+    background-color: var(--gallery-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px; /* Reduced padding */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    height: 102px;
+    overflow-y: auto;
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+.gallery-icon {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--gallery-icon-border);
+    padding: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gallery-icon-bg);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+}
+.gallery-icon:hover { border-color: var(--gallery-icon-hover-border); }
+.gallery-icon.selected {
+    border-color: var(--gallery-selected-border);
+    box-shadow: 0 0 5px var(--gallery-selected-shadow);
+}
+.gallery-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+}
+/* Gallery Delete Button (Emoji Style) */
+.gallery-delete-button {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background: none;
+    color: inherit;
+    border: none;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 5;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gallery-delete-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+.delete-instruction { /* Style for text within gallery label (removed) */
+    color: red;
+    font-weight: bold;
+}
 
 /* Icon Preview Area (Selected Icon) */
 #iconPreview {
     width: 100px;
-    height: 100px;
-    border: 1px dashed #aaa;
-    display: inline-flex;
+    height: 102px;
+    border: 1px dashed var(--border-color-dark);
+    display: flex;
     justify-content: center;
     align-items: center;
-    vertical-align: middle;
-    background-color: #f8f8f8;
+    background-color: var(--gallery-bg);
     overflow: hidden;
-    /* padding: 2px; */
+    /* padding: 5px; Removed padding */
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
-#iconPreview svg, #iconPreview img {
+#iconPreview img {
     display: block;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
 }
 
-/* Icon Gallery Wrapper */
-#icon-gallery-wrapper {
-    width: 100%; /* Take full width below tools */
-    /* margin-top: 10px; Space above gallery */
-    display: flex;
-    flex-direction: row; /* Label above gallery */
-    align-items: flex-start; /* Align label left */
-}
-#icon-gallery-wrapper > label { /* Style the gallery label */
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
-}
-
-/* Icon Gallery */
-#icon-gallery {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    /* padding: 8px; */
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    height: 102px;
-    overflow-y: auto;
-    width: 84%; /* Ensure gallery takes full width inside wrapper */
-    box-sizing: border-box;
-    margin-right: 20px;
-}
-.gallery-icon {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #ccc;
-    padding: 2px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-.gallery-icon:hover { border-color: #999; }
-.gallery-icon.selected { border-color: #007bff; box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); }
-.gallery-icon img { max-width: 100%; max-height: 100%; display: block; object-fit: contain; pointer-events: none; }
-
 /* Pen Preview */
 #penPreview {
     width: 25px;
     height: 25px;
-    border: 1px solid #aaa;
+    border: 1px solid var(--border-color-dark);
     border-radius: 50%;
-    background-color: #E53935;
+    background-color: #6375EE; /* Default, updated by JS */
     display: inline-block;
     vertical-align: middle;
     margin-left: 5px;
     box-sizing: border-box;
     transition: width 0.1s ease, height 0.1s ease, background-color 0.2s ease;
-}
-
-/* Display Options Panel */
-.display-options-panel {
-    background-color: #fff;
-    padding: 10px 20px; /* Reduce top/bottom padding slightly */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 800px;
-}
-.display-options-panel h3 {
-     margin: 0 0 10px 0;
-     font-size: 1.2em;
-     color: #333;
-}
-.display-options-panel .tool {
-     display: flex;
-     flex-wrap: wrap;
-     align-items: center;
-     gap: 10px 15px;
-     justify-content: center;
-}
-.display-options-panel label {
-    font-weight: bold;
-    color: #555;
-}
-.display-options-panel input[type="checkbox"] {
-    width: auto;
-    margin-right: 15px;
-    cursor: pointer;
-    vertical-align: middle;
-}
-.display-options-panel input[type="range"] {
-    cursor: pointer;
-    vertical-align: middle;
-}
-.display-options-panel span { /* Font size value */
-    font-size: 0.9em;
-    min-width: 30px;
-    display: inline-block;
-    text-align: right;
-    font-weight: bold;
-    color: #333;
-    margin-left: -5px;
 }
 
 
@@ -353,116 +666,135 @@ h1 {
     position: relative;
     margin: 20px auto;
     overflow: auto;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    --hex-ui-font-size: 9px; /* Default font size for hex UI */
+    border: 1px solid var(--border-color);
+    background-color: var(--panel-bg-color); /* Match panels */
     cursor: default;
-    padding: 10px;
+    padding: 10px; /* Give padding around the grid */
+    /* width: 90%; User removed */
+    max-width: 98%; /* User changed */
+    /* min-height: 300px; User removed */
+    box-sizing: border-box;
 }
 /* Cursors for specific tool modes */
-#map-area-wrapper.delete-icon-mode #icon-layer { cursor: crosshair; }
-#text-layer.delete-text-mode { cursor: crosshair; }
-/* Disable hex number interaction during drawing */
-#map-area-wrapper.drawing-mode .hex-ui-container .hex-number {
+#map-area-wrapper.delete-icon-mode #icon-layer { cursor: crosshair !important; }
+#map-area-wrapper.delete-text-mode #text-layer { cursor: crosshair !important; }
+#map-area-wrapper.drawing-mode { cursor: crosshair !important; }
+#map-area-wrapper.drawing-mode #drawing-canvas { cursor: crosshair !important; }
+
+/* Disable grid number interaction during incompatible tool modes */
+#map-area-wrapper.drawing-mode .grid-ui-container .cell-number,
+#map-area-wrapper.paint-mode .grid-ui-container .cell-number,
+#map-area-wrapper.stamp-mode .grid-ui-container .cell-number,
+#map-area-wrapper.delete-icon-mode .grid-ui-container .cell-number,
+#map-area-wrapper.delete-text-mode .grid-ui-container .cell-number
+{
     pointer-events: none !important;
     cursor: default !important;
 }
 
 
-/* Base Honeycomb Container */
-#honeycomb-container {
+/* Grid Container */
+#grid-container {
     position: relative;
-    min-width: 100px;
-    min-height: 100px;
+    width: fit-content; /* Fit to generated elements */
+    height: fit-content;
     margin: 0;
     padding: 0;
     z-index: 1;
 }
 
-/* Drawing Canvas Overlay */
-#drawing-canvas {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 10;
-    cursor: default;
-}
-
-/* Icon Layer Overlay */
-#icon-layer {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 20;
-    overflow: hidden;
-    cursor: default;
-}
-
-/* Text Layer Overlay */
+/* Overlay Layers */
+#drawing-canvas,
+#icon-layer,
 #text-layer {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 10px; /* Match wrapper padding */
+    left: 10px; /* Match wrapper padding */
+    /* Width/Height set by JS based on grid dimensions */
     pointer-events: none;
-    z-index: 30;
     overflow: hidden;
     cursor: default;
 }
+#drawing-canvas { z-index: 10; }
+#icon-layer { z-index: 20; }
+#text-layer { z-index: 30; }
 
 
-/* --- Hexagon Styles --- */
-.hexagon {
-    width: var(--hex-width);
-    height: var(--hex-height);
+/* --- Grid Element Styles (Hexagon & Square) --- */
+.grid-element { /* Common base class */
     position: absolute;
-    background-color: #b0e0e6; /* Default color */
+    background-color: #b0e0e6; /* Default color, overridden by JS */
     transition: transform 0.2s ease-in-out, background-color 0.2s ease;
     cursor: pointer;
-    display: flex;
+    display: flex; /* For positioning UI container */
     justify-content: center;
-    align-items: flex-end;
-    overflow: hidden;
+    align-items: flex-end; /* Place UI container at bottom */
+    overflow: hidden; /* Needed for clip-path */
     box-sizing: border-box;
-    padding-bottom: 2px;
+    padding-bottom: 2px; /* Space for UI */
+    /* border: 1px solid rgba(0,0,0,0.1); */ /* User removed */
+}
+.grid-element:hover {
+    transform: scale(1.05);
+    z-index: 5; /* Bring hovered element to front */
+    /* border-color: rgba(0,0,0,0.3); Cannot set border-color if border is none */
+}
+
+/* Hexagon Specific */
+.hexagon {
+    /* Width/Height set by JS */
 }
 .hexagon--pointy { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
 .hexagon--flat { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
-.hexagon:hover { transform: scale(1.05); z-index: 5; }
 
-/* --- Hex UI (Number/Notes) Styles --- */
-.hex-ui-container {
+/* Square Specific */
+.square {
+    /* Width/Height set by JS */
+    border-radius: 2px; /* Optional slight rounding */
+}
+
+
+/* --- Grid UI (Number/Notes) Styles --- */
+.grid-ui-container {
     position: absolute;
-    bottom: 2px;
+    /* Use CSS Variable for vertical position */
+    bottom: var(--grid-ui-vertical-position, 10%); /* Updated default to 10% */
     left: 0;
     width: 100%;
+    transform: translateY(50%); /* Center vertically relative to the 'bottom' value */
     text-align: center;
-    font-size: var(--hex-ui-font-size); /* Use CSS variable */
-    color: #333;
+    font-size: var(--grid-ui-font-size); /* Use CSS variable */
+    color: var(--grid-ui-text);
     line-height: 1.1;
-    pointer-events: none; /* Container doesn't capture clicks */
+    pointer-events: none; /* Container doesn't capture clicks by default */
     user-select: none;
     white-space: nowrap;
     opacity: 0; /* Hidden by default */
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, bottom 0.1s ease; /* Add transition for bottom */
     z-index: 15; /* Above canvas (10), below icon/text layers (20/30) */
     font-family: monospace;
 }
-/* Show hex UI container when wrapper has the class */
-#map-area-wrapper.show-hex-ui .hex-ui-container {
+/* Show grid UI container when wrapper has the class */
+#map-area-wrapper.show-grid-ui .grid-ui-container {
     opacity: 1;
 }
 
-/* Hex Number - Now Clickable */
-.hex-ui-container .hex-number {
+/* Cell Number - Clickable for Notes (when correct tool selected) */
+.grid-ui-container .cell-number {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--grid-ui-bg);
     padding: 0 3px;
     border-radius: 2px;
-    cursor: pointer; /* Indicate clickable */
+    cursor: help; /* Indicate clickable for notes */
     pointer-events: auto; /* Allow clicks on the number */
+    transition: background-color 0.2s ease;
 }
-.hex-ui-container .hex-number:hover {
-    background: rgba(255, 255, 255, 0.9); /* Highlight on hover */
+.grid-ui-container .cell-number:hover {
+    background: var(--grid-ui-hover-bg);
 }
 
 /* Note Indicator (Book Emoji) */
-.hex-ui-container .note-indicator {
+.grid-ui-container .note-indicator {
     pointer-events: none; /* Indicator isn't interactive */
     margin-left: 3px;
     font-size: 1em; /* Match font size or adjust slightly */
@@ -475,56 +807,35 @@ h1 {
 .stamped-icon {
     position: absolute;
     user-select: none;
-    cursor: inherit;
+    cursor: inherit; /* Inherit from layer */
+    display: flex; /* For centering image if needed */
+    justify-content: center;
+    align-items: center;
 }
 .stamped-icon img {
     display: block;
-    width: 100%;
+    width: 100%; /* Image scales within the container div */
     height: 100%;
     object-fit: contain;
-    pointer-events: none;
+    pointer-events: none; /* Let clicks pass to icon-layer */
+    /* Rotation/Colorization applied via JS */
 }
 .stamped-text {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: var(--grid-ui-bg); /* Use same bg as cell UI */
+    color: var(--grid-ui-text); /* Use same text color */
     padding: 1px 4px;
     border-radius: 2px;
     white-space: nowrap;
     user-select: none;
     cursor: default;
     z-index: 31; /* Ensure text is clickable over icons if overlapping */
+    font-size: inherit; /* Inherit font size */
 }
-#text-layer.delete-text-mode .stamped-text {
-    cursor: crosshair !important;
-    border: 1px dashed red;
-}
+/* Highlight deletable items */
+#map-area-wrapper.delete-icon-mode .stamped-icon { border: 2px dashed red; }
+#map-area-wrapper.delete-text-mode .stamped-text { border: 1px dashed red; padding: 0 3px;}
 
-
-/* --- IO Panel Styles --- */
-.io-panel {
-    background-color: #fff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: center;
-}
-.io-panel button {
-     padding: 8px 15px;
-     border: 1px solid #ccc;
-     border-radius: 4px;
-     background-color: #eee;
-     cursor: pointer;
-     font-weight: bold;
-     transition: background-color 0.2s ease;
-}
-.io-panel button:hover {
-     background-color: #ddd;
-}
 
 /* --- Modal Styles --- */
 .modal {
@@ -533,54 +844,136 @@ h1 {
     z-index: 1000;
     left: 0; top: 0; width: 100%; height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: var(--modal-bg);
     justify-content: center;
     align-items: center;
 }
 .modal.active { display: flex; }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--modal-content-bg);
+    color: var(--modal-text);
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid var(--border-color-dark);
     width: 80%;
-    max-width: 500px;
+    max-width: 600px; /* Slightly wider for help */
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 var(--shadow-color);
     position: relative;
 }
 .close-button {
-    color: #aaa;
+    color: var(--modal-close-button);
     position: absolute;
     top: 10px;
     right: 15px;
     font-size: 28px;
     font-weight: bold;
     line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 .close-button:hover,
-.close-button:focus { color: black; text-decoration: none; cursor: pointer; }
-.modal-content h4 { margin-top: 0; margin-bottom: 15px; color: #333; }
-.modal-content textarea {
-    width: 100%;
-    box-sizing: border-box;
+.close-button:focus {
+    color: var(--modal-close-button-hover);
+    text-decoration: none;
+}
+.modal-content h4 {
+    margin-top: 0;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
-    padding: 8px;
-    font-family: sans-serif;
-    font-size: 1em;
-    resize: vertical;
-    min-height: 100px;
+    color: var(--text-color); /* Inherit text color */
 }
 .modal-content button { /* Save button */
-    background-color: #007bff;
-    color: white;
+    background-color: var(--active-button-bg);
+    color: var(--active-button-text);
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     float: right;
     transition: background-color 0.2s ease;
+    margin-top: 10px; /* Add margin above save button */
 }
-.modal-content button:hover { background-color: #0056b3; }
+.modal-content button:hover {
+    filter: brightness(1.2);
+}
+
+/* --- Notes Modal Editor --- */
+.notes-toolbar {
+    background-color: var(--button-bg);
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.notes-toolbar button {
+    background-color: var(--button-hover-bg);
+    color: var(--text-color);
+    border: 1px solid var(--button-border);
+    border-radius: 3px;
+    padding: 3px 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    min-width: 30px;
+    line-height: 1.2;
+}
+.notes-toolbar button:hover {
+    filter: brightness(0.9);
+}
+.notes-toolbar button b,
+.notes-toolbar button i,
+.notes-toolbar button u {
+    font-size: 1.1em;
+}
+
+.notes-editor {
+    width: 100%;
+    box-sizing: border-box;
+    /* margin-bottom: 15px;  Removed margin, save button handles spacing */
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    padding: 10px; /* More padding than textarea */
+    font-family: sans-serif;
+    font-size: 1em;
+    resize: vertical;
+    min-height: 150px; /* Increased min-height */
+    overflow-y: auto; /* Allow scrolling */
+    outline: none; /* Remove focus outline */
+    border-radius: 0 0 4px 4px; /* Rounded bottom corners */
+    border-top: none; /* Remove top border */
+}
+.notes-editor:focus {
+    border-color: var(--active-button-bg); /* Highlight border on focus */
+    box-shadow: 0 0 3px var(--gallery-selected-shadow);
+}
+.notes-editor img {
+    max-width: 100%; /* Ensure inserted images don't overflow */
+    height: auto;
+    display: block; /* Prevent extra space below images */
+    margin: 5px 0; /* Add some space around images */
+}
+
+
+/* Help Modal Specifics */
+#help-modal .modal-content {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+#help-modal ul {
+    padding-left: 20px;
+}
+#help-modal li {
+    margin-bottom: 8px;
+}
+#help-modal b {
+    color: var(--active-button-bg); /* Highlight keywords */
+}
+body.dark-mode #help-modal b {
+    color: var(--gallery-selected-border); /* Lighter highlight */
+}
+
+/* --- END OF FILE style.css --- */
