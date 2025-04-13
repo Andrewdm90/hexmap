@@ -51,7 +51,7 @@ function initializeApp() {
         return;
     }
 
-    console.log("Grid Map Editor Initialized Successfully.");
+    console.log("Hex Map Editor Initialized Successfully.");
 }
 
 // --- Start ---

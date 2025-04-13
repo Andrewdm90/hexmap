@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <title>Grid Map Editor</title>
+    <title>Hex Map Editor</title>
     <link rel="stylesheet" href="style.css">
     <!-- Include html2canvas library -->
     <script src="html2canvas.min.js"></script>
@@ -26,7 +26,7 @@
     <!-- Settings Panel -->
     <div class="settings-panel" id="settings-panel">
         <div class="panel-header" id="settings-toggle">
-            <h3>Grid Settings</h3>
+            <h3>Hex Settings</h3>
             <button class="collapse-btn" title="Toggle Settings">▲</button>
         </div>
         <div class="panel-content">
@@ -209,12 +209,12 @@
     <div id="help-modal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="help-modal-close">×</span>
-            <h4>Grid Map Editor Help</h4>
+            <h4>Hex Map Editor Help</h4>
             <p>Version 18 - 13/04/2025</p>
             <p>Instructions on how to use the editor:</p>
             <ul>
-                <li>Use the Grid Settings to change map size, shape, and layout. Click the header to collapse/expand.</li>
-                <li>Select tools from the tabs below the grid settings.</li>
+                <li>Use the Hex Settings to change map size, shape, and layout. Click the header to collapse/expand.</li>
+                <li>Select tools from the tabs below the hex settings.</li>
                 <li><b>Paint Tab:</b> Click cells to color them or erase color. Use color picker, hex input, or eyedropper.</li>
                 <li><b>Icon Tab:</b> Upload SVG/PNG/JPG icons. Select one from the gallery. Click map to stamp. Use sliders to adjust size and rotation *before* stamping. Click 'Delete Icon' then click icons on the map to remove them. Click the red '❌' on gallery icons to remove them from the gallery.</li>
                  <li><b>Text Tab:</b> Enter text, set size/color using picker, hex, or eyedropper. Click map to stamp. Click 'Delete Text' then click text on map to remove.</li>
